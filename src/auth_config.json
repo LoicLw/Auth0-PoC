@@ -1,0 +1,5 @@
+{
+  "domain": "seappl.eu.auth0.com",
+  "clientId": "v7pacZ1r25riC13vQ00BgeezSGRc0RNq",
+  "audience": "http://localhost:3001/order"
+}
