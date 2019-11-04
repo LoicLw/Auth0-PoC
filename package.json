@@ -19,6 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
+    "gdata-js": "^3.0.1",
     "helmet": "^3.18.0",
     "highlight.js": "^9.15.6",
     "jwks-rsa": "^1.4.0",
@@ -28,7 +29,8 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
