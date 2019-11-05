@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
-import Highlight from "../components/Highlight";
+//import Highlight from "../components/Highlight";
 import { useAuth0 } from "../react-auth0-spa";
 
 const ExternalApi = () => {
@@ -8,23 +8,31 @@ const ExternalApi = () => {
   const [apiMessage, setApiMessage] = useState("");
   const { getTokenSilently } = useAuth0();
 
-  //User info in 
+  //We ask for user info in use object
   const { user } = useAuth0();
 
   const callApi = async () => {
     try {
+      console.log("[Dev Logs] - Calling getTokenSilently, we'll either get a valid Access Token or an error if there's no session at Auth0")
+      
+      //We can customize the scopes and audience here i.e. for the Google part
+      //Documentation on https://auth0.com/docs/libraries/auth0-spa-js/migrate-from-auth0js
+      
       const token = await getTokenSilently();
 
+      console.log("[Dev Logs] - Auth0 token is:", token)
       //We use user.sub
-      console.log("Front - USERID is: ", user.sub)
+      console.log("[Dev Logs] - Your User ID is: ", user.sub)
 
-      //ADD CHECK IF USER_EMAIL is verified
+      // We check on both Front-end and back-end if email is verified
       if(!user.email_verified){
+        console.log("[Dev Logs] - Email not verified:", token)
         setShowResult(true);
-        setApiMessage("You need to verify your email first")
+        setApiMessage("Please verify your email first before placing orders.")
       }
         
       else{
+        console.log("[Dev Logs] - Verified email, let's call our API")
         const response = await fetch("/api/order", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,10 +43,8 @@ const ExternalApi = () => {
         const responseData = await response.json();
 
         setShowResult(true);
-        setApiMessage("Your email is validated, thank you :) " + responseData.msg);
-
+        setApiMessage("Our ordering system (API) says: " + responseData.msg);
       }
-
       
     } catch (error) {
       console.error(error);
@@ -61,7 +67,9 @@ const ExternalApi = () => {
       <div className="result-block-container">
         <div className={`result-block ${showResult && "show"}`}>
           <h6 className="muted">Result</h6>
-          <Highlight>{JSON.stringify(apiMessage, null, 2)}</Highlight>
+          <p>
+          {JSON.stringify(apiMessage, null, 2)}
+          </p>
         </div>
       </div>
     </>

@@ -37,9 +37,9 @@ const NavBar = () => {
     <div className="nav-container">
       <Navbar color="light" light expand="md">
         <Container>
-          <NavbarBrand className="logo" />
+          <NavbarBrand />
         {/*Adding custom logo*/}
-          <img src={logo} width="40" />
+          <img src={logo} width="30" alt="Logo" />
 
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>

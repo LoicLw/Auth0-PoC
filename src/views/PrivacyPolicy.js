@@ -1,18 +1,14 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-
-import Highlight from "../components/Highlight";
-import Loading from "../components/Loading";
-import { useAuth0 } from "../react-auth0-spa";
+import { Container, Row } from "reactstrap";
 
 const PrivacyPolicy = () => {
     return (
       <Container className="mb-5">
         <Row className="align-items-center profile-header mb-5 text-center text-md-left">
           <p className="lead text-muted">Privacy Policy
-Introduction
+Introduction.
 
-Ideal Boilers Limited (referred to in this document as ‘Ideal Boilers’, ‘data controller’, ‘we’, ‘our’ or ‘us’), are committed to protecting and respecting your privacy and the security of your personal data. We aim to be clear and transparent about what we do with the personal data we collect. (‘Personal data’ means any information relating to an identifiable person). This policy:
+This policy:
 
      Sets out how we process your personal data. (‘Processing’ means anything we do with your data, and includes collecting, using, storing and deleting it);
     Sets out where we might send your personal data to others, how we protect it and your privacy rights;
@@ -20,13 +16,11 @@ Ideal Boilers Limited (referred to in this document as ‘Ideal Boilers’, ‘d
 
  
 
-Who we are and how to contact us
+Who we are and how to contact us.
 
-Ideal Boilers are part of Groupe Atlantic. With over 100 years’ experience in the UK heating industry, Ideal Boilers are a market leader in the supply and servicing of domestic and commercial boilers.
+In respect of the General Data Protection Regulation (GDPR) and the Data Protection Act 2018, the data controller is us.
 
-In respect of the General Data Protection Regulation (GDPR) and the Data Protection Act 2018, the data controller is Ideal Boilers Ltd, National Avenue, Hull, East Yorkshire, HU5 4JB.
-
-If you have any questions, requests or comments regarding this privacy policy, you can email dpo@groupe-atlantic.co.uk. You can also contact us at the above postal address.
+If you have any questions, requests or comments regarding this privacy policy, you can email us. You can also contact us at the above postal address.
 
  
 
@@ -34,7 +28,7 @@ The personal data we collect from you
 
 We may collect personal data from you in the following circumstances, when you:
 
-    Fill in a form on our site www.idealboilers.com. This includes information provided at the time of registering to use our site, subscribing to a service, requesting further services and completing the Contact Form;
+    Fill in a form on our site . This includes information provided at the time of registering to use our site, subscribing to a service, requesting further services and completing the Contact Form;
     Visit our site, we may automatically collect traffic data, location data, weblogs, browser, usage and other communications data;
     Report a problem with our site;
     Contact us by phone;
@@ -68,7 +62,7 @@ There are three legal bases under which we process personal data for product and
 
 Marketing
 
-We may send you marketing messages by email, text message (sms), telephone or post about us and our products and offers. For email and SMS messages, the legal basis is consent. If you want us to stop sending you information by email or SMS, you can opt out at any time by selecting the ‘unsubscribe’ link on any email or sms we send you. You can also email us at dpo@groupe-atlantic.co.uk. or write to us at: Data Protection Officer, Ideal Boilers Limited, National Avenue, Hull, HU5 4JB
+We may send you marketing messages by email, text message (sms), telephone or post about us and our products and offers. For email and SMS messages, the legal basis is consent. If you want us to stop sending you information by email or SMS, you can opt out at any time by selecting the ‘unsubscribe’ link on any email or sms we send you. 
 
  
 
@@ -88,26 +82,14 @@ We are required to have written contracts in place with any third parties we use
 
  Third parties we share your personal data with are listed below:
 
-    Agency TK
-    Domestic & General;
-    First Event;
-    Gas Safe Register;
-    Google Analytics;
-    LoyaltyMatters;
-    Microsoft
-    QlikView;
-    SalesForce;
-    Square Owl;
-    Trustpilot;
+ Auth0
+ Google
 
 
 Where we store your personal data
 
 Some data that we collect listed below, is transferred and stored outside the EEA. All other personal data is processed within the EEA.
 
-Processed outside the EEA:
-
-    Google Tag Manager (website analytics) – EU-US Privacy Shield. 
 
 It will also be processed by staff who work for us and, or by one of our suppliers. This includes for example staff fulfilling your order, processing your payment details and providing support services. We take all necessary steps to ensure that your data is processed securely in accordance with this Privacy Policy.
 
@@ -142,7 +124,6 @@ Unfortunately, the transmission of information via the Internet is not always se
 
  Your Rights
 
-You have certain rights (detailed below) under data protection law, and you can make requests to us about any personal data we hold about you. Requests can be in writing or verbal, and can be made to any part of our organisation. It will help us to complete your request more effectively however if you contact us at dpo@groupe-atlantic.co.uk.
 
 We will also need to verify your identity. The Information Commissioner (ICO) have a page on their website that includes a template for a letter which can be used when sending requests to us (https://ico.org.uk/your-data-matters/your-right-of-access). We will respond within one month from the date of the request, and will not ordinarily charge a fee. If further copies are required, and / or the request is deemed excessive however, we may charge a reasonable fee. Your rights:
 
@@ -157,7 +138,7 @@ We will also need to verify your identity. The Information Commissioner (ICO) ha
     Right to withdraw consent. Where our processing is based on your consent, you have the right to withdraw this consent at any time;
     Right to complain to a supervisory authority. If you are concerned about how we are handling your personal data, you have the right to complain to the data protection authorities. In the UK, this is the Information Commissioners Office (click here https://ico.org.uk/make-a-complaint/handling/ to visit the ICO’s website).
 
-Postal address of the ICO: Customer Contact, Information Commissioner’s Office, Wycliffe House, Water Lane, Wilmslow, SK9 5AF
+
 
 
 Changes to our Privacy Policy

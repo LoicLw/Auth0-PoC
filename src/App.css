@@ -37,3 +37,15 @@
 .result-block-container .result-block.show {
   opacity: 1;
 }
+
+.result-block {
+    position: inherit;
+}
+
+.hljs {
+  max-width: 90%;
+}
+
+.msg-wrapper {
+  white-space: pre-line;
+}
