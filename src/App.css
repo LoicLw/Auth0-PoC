@@ -46,6 +46,6 @@
   max-width: 90%;
 }
 
-.msg-wrapper {
-  white-space: pre-line;
+.footer {
+  min-height: 0px !important;
 }

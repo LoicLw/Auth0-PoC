@@ -25,7 +25,8 @@ const Profile = () => {
         <Col md>
           <h2>{user.name}</h2>
           <p className="lead text-muted">{user.email}</p>
-          <p> Email verified? {user.email_verified.toString()}</p>
+          <p> Email verification status: {user.email_verified.toString()}</p>
+          <p> User metadata: {user.user_metadata.toString()}</p>
         </Col>
       </Row>
       <Row>

@@ -13,12 +13,14 @@ const ExternalApi = () => {
 
   const callApi = async () => {
     try {
-      console.log("[Dev Logs] - Calling getTokenSilently, we'll either get a valid Access Token or an error if there's no session at Auth0")
+      console.log("[Dev Logs] - Calling getTokenSilently")
       
-      //We can customize the scopes and audience here i.e. for the Google part
-      //Documentation on https://auth0.com/docs/libraries/auth0-spa-js/migrate-from-auth0js
-      
+      //getTokenSilently: If there's a valid token stored, return it. Otherwise, opens an iFrame with the /authorize URL using the parameters provided as arguments. 
+      //Google OAuth 2.0 needs to pass the parameter access_type=offline when calling the Auth0 /authorize endpoint)access_type=offline to force new token as Google OAuth Access Token are only valid for 3600s
+      //We can customize the scopes and audience here i.e. authorize readonly contacts access
+
       const token = await getTokenSilently();
+
 
       console.log("[Dev Logs] - Auth0 token is:", token)
       //We use user.sub
