@@ -114,11 +114,11 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
          }
 
          const result = await requestPromise(optionsGoogleContacts)
-         console.log("[Dev Logs] -  Google Contacts API response:", result)
+         console.log("[Dev Logs] -  Google Contacts API response - first 1500 chars:", result.slice(0,1500))
 
          bodyGoogleContacts = JSON.parse(result)
          contactTotal = parseInt(bodyGoogleContacts.feed.openSearch$totalResults.$t)
-         console.log("[Dev Logs] - Google Contacts - Number of contacts", contactTotal)
+         console.log("[Dev Logs] - Google Contacts - Number of contacts:", contactTotal)
          
       } catch (e) {
          console.error("[ERR - Dev Logs] - Error with Google API Access")
