@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import Home from "./views/Home";
 import Profile from "./views/Profile";
 import PrivacyPolicy from "./views/PrivacyPolicy";
-import ExternalApi from "./views/ExternalApi";
+import OrderApi from "./views/OrderApi";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 
@@ -35,7 +35,7 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
-            <PrivateRoute path="/orderpizza" component={ExternalApi} />
+            <PrivateRoute path="/orderpizza" component={OrderApi} />
             <PrivateRoute path="/privacypolicy" component={PrivacyPolicy} />
           </Switch>
         </Container>
