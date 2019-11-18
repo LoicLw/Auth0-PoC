@@ -1,8 +1,10 @@
 const express = require("express")
 const morgan = require("morgan")
 const helmet = require("helmet")
-const jwt = require("express-jwt")
-const jwksRsa = require("jwks-rsa")
+
+const jwt = require("express-jwt") //Validates JWTs from the authorization header and sets the req.user object
+const jwksRsa = require("jwks-rsa") //Downloads RSA signing keys from a JSON Web Key Set (JWKS) endpoint
+
 const path = require('path')
 const {join} = require("path")
 const authConfig = require("./src/auth_config.json")
@@ -27,11 +29,6 @@ app.use(morgan("dev"))
 app.use(helmet())
 app.use(express.static(join(__dirname, "build")))
 
-/*
-app.use(asyncHandler(async (req, res, next) => {
-   next()
-}))
-*/
 
 // Authentication middleware. 
 // When used, the Access Token must exist and be verified against the Auth0 JSON Web Key Set
@@ -52,9 +49,8 @@ const checkJwt = jwt({
 
 
 //
-// This is our order API logic. The API checks for user authentication with checkJwt.
-// 
-// Check if user is email verified before actually ordering
+// This is our protected order API logic. The API checks for user authentication with checkJwt.
+// We check if user has email verified flag on before actually ordering
 // We add an asyncHandler function to use await in the main thread
 
 app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
@@ -166,6 +162,14 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
    }
 }))
 
+//Error handler (now a JSON response is returned from your API in the event of a missing or invalid JWT token)
+app.use(function(err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    return res.status(401).send({ msg: "Invalid token" });
+  }
+
+  next(err, req, res);
+});
 
 
 app.use((_, res) => {
