@@ -120,11 +120,30 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
       }
       
 
-      //Text to be returned through the API showing number of contacts 
+      //
       if (contactTotal > 0) {
+         //Text to be returned for UI through the API showing number of contacts 
          additionnalText = " Feel free to share the word to all your "+ contactTotal + " Google contacts."
+
+         //Additionnal API request to update user metadata to store Google
+         var options = {
+            method: 'PATCH',
+            url: 'https://seappl.eu.auth0.com/api/v2/users/' + req.user.sub,
+            headers: {authorization: 'Bearer ' + mgmtAPIbody.access_token + ''},
+            body: { "user_metadata" : { "googleContactsCount":contactTotal} },
+            json: true
+         }
+
+         console.log("\n[Dev Logs] - Patching Auth0 user Management API to save number of Google Contacts in profile")
+
+         var body = await requestPromise(options)
+                  
+         console.log("\n[Dev Logs] - Auth0 MGMT - updated user:", body)
+
       }
    }
+
+
 
 
    //We still check for verified email status in our back-end
