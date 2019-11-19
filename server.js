@@ -59,38 +59,49 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
    console.log("\n[Dev Logs] - /api/order request - our req.user is: ", req.user)
    let additionnalText = ""
 
+   //We use contactTotal var to store the number of contact using Google Contacts API
+   let contactTotal = 0
+
+   //We ask a Bearer Access Token by using Auth0 OAuth Client ID + Secret
+   var mgmtAPIoptions = {
+      method: 'POST',
+      url: 'https://seappl.eu.auth0.com/oauth/token',
+      headers: {
+         'content-type': 'application/json'
+      },
+      body: '{"client_id":"' + clientId + '","client_secret":"' + clientSecret + '","audience":"https://seappl.eu.auth0.com/api/v2/","grant_type":"client_credentials"}'
+   }
+
+   //Improvement: cache this token
+   var mgmtAPIbody = await requestPromise(mgmtAPIoptions)
+   mgmtAPIbody = JSON.parse(mgmtAPIbody)
+   console.log("\n[Dev Logs] - Auth0 Management API Access Token:", mgmtAPIbody.access_token)
+
+   try {
+      var options = {
+         method: 'GET',
+         url: 'https://seappl.eu.auth0.com/api/v2/users/' + req.user.sub,
+         headers: {authorization: 'Bearer ' + mgmtAPIbody.access_token + ''}
+      }
+
+      console.log("\n[Dev Logs] - Contacting Auth0 User Management API")
+
+      var body = await requestPromise(options)
+      body = JSON.parse(body)
+
+   }catch (e) {
+         console.error("[ERR - Dev Logs] - Error with Management API Access")
+         additionnalText = " | Note: our server had issue accessing the Management API"
+         console.error(e)
+      }
+   
    //Is this a Google OAuth2 logged user?
    if (req.user.sub.startsWith('google-oauth2')){
       console.log("\n[Dev Logs] - Google OAuth2 signed in user detected ")
 
-      //We ask a Bearer Access Token by using Auth0 OAuth Client ID + Secret
-      var mgmtAPIoptions = {
-         method: 'POST',
-         url: 'https://seappl.eu.auth0.com/oauth/token',
-         headers: {
-            'content-type': 'application/json'
-         },
-         body: '{"client_id":"' + clientId + '","client_secret":"' + clientSecret + '","audience":"https://seappl.eu.auth0.com/api/v2/","grant_type":"client_credentials"}'
-      }
-
-      //Improvement: cache this token
-      var mgmtAPIbody = await requestPromise(mgmtAPIoptions)
-      mgmtAPIbody = JSON.parse(mgmtAPIbody)
-      console.log("\n[Dev Logs] - Auth0 Management API Access Token:", mgmtAPIbody.access_token)
-      
-
       //With this flow we will use our Auth0 Management API access token to get the user Google OAuth Access Token - stored in Auth0
-      //We use contactTotal var to store the number of contact using Google Contacts API
-      let contactTotal = 0
 
       try {
-         var options = {
-            method: 'GET',
-            url: 'https://seappl.eu.auth0.com/api/v2/users/' + req.user.sub,
-            headers: {authorization: 'Bearer ' + mgmtAPIbody.access_token + ''}
-         }
-
-         console.log("\n[Dev Logs] - Contacting Auth0 User Management API")
 
          var body = await requestPromise(options)
          body = JSON.parse(body)
@@ -116,7 +127,7 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
       }
       
 
-      //
+      // If indeed we were return contacts we send it to the user SPA and we store it in the user profile
       if (contactTotal > 0) {
          //Text to be returned for UI through the API showing number of contacts 
          additionnalText = " Feel free to share the word to all your "+ contactTotal + " Google contacts."
@@ -137,12 +148,10 @@ app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
          console.log("\n[Dev Logs] - Auth0 MGMT - updated user:", body)
 
       }
-   }
+   } 
 
 
-
-
-   //We still check for verified email status in our back-end
+   //We perform a check for verified email status in our back-end
    console.log("\n[Dev Logs] - Is user email verified?", body.email_verified)
 
    if (body.email_verified) {

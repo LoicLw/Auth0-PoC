@@ -16,6 +16,7 @@ const OrderApi = () => {
       console.log("[Dev Logs] - Calling getTokenSilently")
       
       //getTokenSilently: If there's a valid token stored, return it. Otherwise, opens an iFrame with the /authorize URL using the parameters provided as arguments. 
+      
       //Google OAuth 2.0 needs to pass the parameter access_type=offline when calling the Auth0 /authorize endpoint)access_type=offline to force new token as Google OAuth Access Token are only valid for 3600s
       //We can customize the scopes and audience here i.e. authorize readonly contacts access
 
