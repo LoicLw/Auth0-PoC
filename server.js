@@ -52,6 +52,46 @@ const checkJwt = jwt({
 // This is our protected order API logic. The API checks for user authentication with checkJwt.
 // We check if user has email verified flag on before actually ordering
 // We add an asyncHandler function to use await in the main thread
+app.get("/api/userinfo", checkJwt, asyncHandler(async (req, res, next) => {
+   //We ask a Bearer Access Token by using Auth0 OAuth Client ID + Secret
+   var mgmtAPIoptions = {
+      method: 'POST',
+      url: 'https://seappl.eu.auth0.com/oauth/token',
+      headers: {
+         'content-type': 'application/json'
+      },
+      body: '{"client_id":"' + clientId + '","client_secret":"' + clientSecret + '","audience":"https://seappl.eu.auth0.com/api/v2/","grant_type":"client_credentials"}'
+   }
+
+   //Improvement: cache this token
+   var mgmtAPIbody = await requestPromise(mgmtAPIoptions)
+   mgmtAPIbody = JSON.parse(mgmtAPIbody)
+   console.log("\n[Dev Logs] - Auth0 Management API Access Token:", mgmtAPIbody.access_token)
+
+   try {
+      var options = {
+         method: 'GET',
+         url: 'https://seappl.eu.auth0.com/api/v2/users/' + req.user.sub,
+         headers: {authorization: 'Bearer ' + mgmtAPIbody.access_token + ''}
+      }
+
+      console.log("\n[Dev Logs] - Contacting Auth0 User Management API")
+
+      var body = await requestPromise(options)
+      body = JSON.parse(body)
+
+   }catch (e) {
+         console.error("[ERR - Dev Logs] - Error with Management API Access")
+         additionnalText = " | Note: our server had issue accessing the Management API"
+         console.error(e)
+   }
+
+   res.send({
+      msg: body
+   })
+
+
+}))
 
 app.get("/api/order", checkJwt, asyncHandler(async (req, res, next) => {
 

@@ -10,6 +10,7 @@ import Home from "./views/Home";
 import Profile from "./views/Profile";
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import OrderApi from "./views/OrderApi";
+import UserApi from "./views/UserApi";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/orderpizza" component={OrderApi} />
+            <PrivateRoute path="/userinfo" component={UserApi} />
             <PrivateRoute path="/privacypolicy" component={PrivacyPolicy} />
           </Switch>
         </Container>

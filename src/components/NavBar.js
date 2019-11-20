@@ -64,6 +64,14 @@ const NavBar = () => {
                   >
                     Order Pizza
                   </NavLink>
+                  <NavLink
+                    tag={RouterNavLink}
+                    to="/userinfo"
+                    exact
+                    activeClassName="router-link-exact-active"
+                  >
+                    User Info
+                  </NavLink>
                 </NavItem>
               )}
             </Nav>
