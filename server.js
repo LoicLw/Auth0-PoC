@@ -12,7 +12,7 @@ const request = require("request")
 const requestPromise = require("request-promise")
 
 const app = express()
-const port = process.env.SERVER_PORT || 3001
+const port = process.env.SERVER_PORT || 3000
 
 if (!authConfig.domain || !authConfig.audience) {
    throw new Error(
@@ -27,7 +27,9 @@ const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next
 
 app.use(morgan("dev"))
 app.use(helmet())
+
 app.use(express.static(join(__dirname, "build")))
+
 
 
 // Authentication middleware. 

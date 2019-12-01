@@ -3,13 +3,13 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "start": "npm-run-all --parallel spa server",
+    "react": "npm-run-all --parallel spa server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "spa": "react-scripts start",
-    "server": "node server.js",
-    "server:dev": "nodemon server.js",
+    "start": "node server.js",
+    "start:dev": "nodemon server.js",
     "dev": "npm-run-all --parallel spa server:dev"
   },
   "dependencies": {
